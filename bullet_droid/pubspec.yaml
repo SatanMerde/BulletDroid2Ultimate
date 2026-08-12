@@ -2,7 +2,7 @@ name: bullet_droid
 description: "BulletDroid2Ultimate - An enhanced open source mobile port of OpenBullet with Dart and Flutter"
 publish_to: "none"
 
-version: 2.1.2+13
+version: 2.1.3+14
 
 environment:
   sdk: ^3.8.1
