@@ -171,7 +171,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
           padding: EdgeInsets.all(GeistSpacing.md),
           decoration: BoxDecoration(
             color: GeistColors.gray50,
-            borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+            borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
             border: Border.all(color: GeistColors.gray200),
           ),
           child: Column(

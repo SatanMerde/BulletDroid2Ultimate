@@ -38,7 +38,7 @@ class UpdateService {
         final releaseNotes = data['body'] as String? ?? 'No release notes available.';
         final assets = data['assets'] as List<dynamic>?;
         
-        String downloadUrl = data['html_url'];
+        String downloadUrl = data['html_url'] as String;
         
         if (assets != null && assets.isNotEmpty) {
           final apkAsset = assets.firstWhere(

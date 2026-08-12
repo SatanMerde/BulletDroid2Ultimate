@@ -175,7 +175,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
                     padding: EdgeInsets.symmetric(horizontal: GeistSpacing.md),
                     decoration: BoxDecoration(
                       border: Border.all(color: GeistColors.gray200),
-                      borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+                      borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<ProxyType>(
@@ -207,7 +207,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
               padding: EdgeInsets.all(GeistSpacing.md),
               decoration: BoxDecoration(
                 color: GeistColors.errorColorSubtle,
-                borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+                borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
                 border: Border.all(color: GeistColors.red.withValues(alpha: 0.3)),
               ),
               child: GeistText.bodyMedium(_error!, customColor: GeistColors.red),
@@ -239,7 +239,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
           padding: EdgeInsets.all(GeistSpacing.lg),
           decoration: BoxDecoration(
             color: statusColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+            borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
             border: Border.all(color: statusColor.withValues(alpha: 0.3)),
           ),
           child: Row(
@@ -271,7 +271,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
             padding: EdgeInsets.all(GeistSpacing.md),
             decoration: BoxDecoration(
               border: Border.all(color: GeistColors.gray200),
-              borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+              borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
