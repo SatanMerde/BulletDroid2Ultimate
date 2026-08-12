@@ -7,6 +7,8 @@ import 'package:bullet_droid/core/design_tokens/borders.dart';
 import 'package:bullet_droid/core/components/atoms/geist_text.dart';
 import 'package:bullet_droid/core/components/atoms/geist_button.dart';
 import 'package:bullet_droid/features/configs/providers/configs_provider.dart';
+import 'package:bullet_droid/features/configs/models/visual_blocks.dart';
+import 'package:bullet_droid/features/configs/presentation/widgets/visual_block_card.dart';
 
 class ConfigEditorScreen extends ConsumerStatefulWidget {
   const ConfigEditorScreen({super.key});
@@ -19,6 +21,9 @@ class _ConfigEditorScreenState extends ConsumerState<ConfigEditorScreen> {
   final TextEditingController _codeController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool _isSaving = false;
+  
+  bool _isVisualMode = false;
+  final List<VisualBlock> _visualBlocks = [];
 
   @override
   void initState() {
@@ -186,6 +191,76 @@ class _ConfigEditorScreenState extends ConsumerState<ConfigEditorScreen> {
     }
   }
 
+  String _extractSettings(String code) {
+    final idx = code.indexOf('[SCRIPT]');
+    if (idx != -1) {
+      return code.substring(0, idx).trim();
+    }
+    return '';
+  }
+
+  void _toggleMode(bool visual) {
+    if (_isVisualMode == visual) return;
+    
+    if (!visual) {
+      // Compile visual blocks back to code
+      final compiled = VisualConfigCompiler.compileBlocks(_visualBlocks, _extractSettings(_codeController.text));
+      _codeController.text = compiled;
+    }
+    
+    setState(() => _isVisualMode = visual);
+  }
+
+  void _showAddBlockModal() {
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: GeistColors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(GeistBorders.radiusLarge)),
+      ),
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: GeistSpacing.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GeistText.headingMedium('Add Block', fontWeight: FontWeight.bold),
+              SizedBox(height: GeistSpacing.md),
+              ListTile(
+                leading: Icon(Icons.language, color: GeistColors.blue),
+                title: GeistText.bodyLarge('REQUEST'),
+                subtitle: GeistText.bodySmall('Send HTTP requests'),
+                onTap: () {
+                  setState(() => _visualBlocks.add(RequestBlockUI()));
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.vpn_key, color: GeistColors.amber),
+                title: GeistText.bodyLarge('KEYCHECK'),
+                subtitle: GeistText.bodySmall('Check for success/fail keys'),
+                onTap: () {
+                  setState(() => _visualBlocks.add(KeycheckBlockUI()));
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.code, color: GeistColors.purple),
+                title: GeistText.bodyLarge('PARSE'),
+                subtitle: GeistText.bodySmall('Extract variables from strings'),
+                onTap: () {
+                  setState(() => _visualBlocks.add(ParseBlockUI()));
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -220,34 +295,118 @@ class _ConfigEditorScreenState extends ConsumerState<ConfigEditorScreen> {
           ),
         ],
       ),
-      body: Container(
-        color: GeistColors.gray50,
-        padding: EdgeInsets.all(GeistSpacing.md),
-        child: Container(
-          decoration: BoxDecoration(
-            color: GeistColors.white,
-            border: Border.all(color: GeistColors.gray200),
-            borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
-          ),
-          child: TextField(
-            controller: _codeController,
-            focusNode: _focusNode,
-            maxLines: null,
-            expands: true,
-            style: const TextStyle(
-              fontFamily: 'GeistMono', // Use monospaced font
-              fontSize: 13,
-              color: GeistColors.black,
-              height: 1.5,
+      body: Column(
+        children: [
+          // Mode Toggle
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: GeistSpacing.md, vertical: GeistSpacing.sm),
+            color: GeistColors.gray50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GeistButton(
+                  text: 'Visual Mode',
+                  variant: _isVisualMode ? GeistButtonVariant.filled : GeistButtonVariant.outline,
+                  size: GeistButtonSize.small,
+                  onPressed: () => _toggleMode(true),
+                ),
+                SizedBox(width: GeistSpacing.md),
+                GeistButton(
+                  text: 'LoliCode Mode',
+                  variant: !_isVisualMode ? GeistButtonVariant.filled : GeistButtonVariant.outline,
+                  size: GeistButtonSize.small,
+                  onPressed: () => _toggleMode(false),
+                ),
+              ],
             ),
-            decoration: InputDecoration(
-              hintText: 'Paste your LoliCode here...',
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.all(GeistSpacing.md),
+          ),
+          
+          Expanded(
+            child: Container(
+              color: GeistColors.gray50,
+              padding: EdgeInsets.all(GeistSpacing.md),
+              child: _isVisualMode ? _buildVisualEditor() : _buildTextEditor(),
             ),
           ),
+        ],
+      ),
+      floatingActionButton: _isVisualMode 
+        ? FloatingActionButton(
+            onPressed: _showAddBlockModal,
+            backgroundColor: GeistColors.black,
+            child: Icon(Icons.add, color: GeistColors.white),
+          ) 
+        : null,
+    );
+  }
+
+  Widget _buildTextEditor() {
+    return Container(
+      decoration: BoxDecoration(
+        color: GeistColors.white,
+        border: Border.all(color: GeistColors.gray200),
+        borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
+      ),
+      child: TextField(
+        controller: _codeController,
+        focusNode: _focusNode,
+        maxLines: null,
+        expands: true,
+        style: const TextStyle(
+          fontFamily: 'GeistMono', // Use monospaced font
+          fontSize: 13,
+          color: GeistColors.black,
+          height: 1.5,
+        ),
+        decoration: InputDecoration(
+          hintText: 'Paste your LoliCode here...',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.all(GeistSpacing.md),
         ),
       ),
+    );
+  }
+
+  Widget _buildVisualEditor() {
+    if (_visualBlocks.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.extension_off, size: 48, color: GeistColors.gray400),
+            SizedBox(height: GeistSpacing.md),
+            GeistText.bodyLarge('No blocks added yet', customColor: GeistColors.gray600),
+            SizedBox(height: GeistSpacing.sm),
+            GeistText.bodyMedium('Tap + to add your first block', customColor: GeistColors.gray400),
+          ],
+        ),
+      );
+    }
+
+    return ReorderableListView.builder(
+      itemCount: _visualBlocks.length,
+      onReorder: (oldIndex, newIndex) {
+        setState(() {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          final item = _visualBlocks.removeAt(oldIndex);
+          _visualBlocks.insert(newIndex, item);
+        });
+      },
+      itemBuilder: (context, index) {
+        final block = _visualBlocks[index];
+        return VisualBlockCard(
+          key: ValueKey(block.id),
+          block: block,
+          onChanged: () {
+            // Keep state in sync if we need parent rebuilds
+          },
+          onDelete: () {
+            setState(() => _visualBlocks.removeAt(index));
+          },
+        );
+      },
     );
   }
 }
