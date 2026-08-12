@@ -12,6 +12,7 @@ import 'package:bullet_droid/core/components/molecules/geist_dropdown.dart';
 
 import 'package:bullet_droid/features/settings/providers/settings_provider.dart';
 import 'package:bullet_droid/core/router/app_router.dart';
+import 'package:bullet_droid/features/settings/presentation/widgets/update_dialog.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -122,6 +123,62 @@ class SettingsScreen extends ConsumerWidget {
                               SizedBox(height: GeistSpacing.xs),
                               const GeistText(
                                 'Manage custom parsing rules for wordlists',
+                                variant: GeistTextVariant.bodySmall,
+                                customColor: GeistColors.gray600,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: GeistColors.gray600,
+                          size: 16,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: GeistSpacing.xs),
+
+              Material(
+                color: GeistColors.transparent,
+                child: InkWell(
+                  onTap: () => UpdateDialog.show(context),
+                  borderRadius: BorderRadius.circular(8),
+                  child: Padding(
+                    padding: EdgeInsets.all(GeistSpacing.lg),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(GeistSpacing.sm),
+                          decoration: BoxDecoration(
+                            color: GeistColors.amber,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Icon(
+                            Icons.system_update,
+                            color: GeistColors.white,
+                            size: 20,
+                          ),
+                        ),
+
+                        SizedBox(width: GeistSpacing.lg),
+
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const GeistText(
+                                'Check for Updates',
+                                variant: GeistTextVariant.bodyLarge,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              SizedBox(height: GeistSpacing.xs),
+                              const GeistText(
+                                'Download and install the latest version',
                                 variant: GeistTextVariant.bodySmall,
                                 customColor: GeistColors.gray600,
                               ),
