@@ -117,6 +117,7 @@ class ConfigExecution {
       'custom': custom,
       'bad': bad,
       'toCheck': toCheck,
+      'retries': retries,
       'isRunning': isRunning,
       'isPlaceholder': isPlaceholder,
       'startTime': startTime?.toIso8601String(),
@@ -142,6 +143,7 @@ class ConfigExecution {
       custom: json['custom'] as int,
       bad: json['bad'] as int,
       toCheck: json['toCheck'] as int,
+      retries: json['retries'] as int? ?? 0,
       isRunning: json['isRunning'] as bool,
       isPlaceholder: json['isPlaceholder'] as bool? ?? false,
       startTime: json['startTime'] != null
