@@ -120,7 +120,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
       children: [
         GeistText.headingLarge(
           'Test Config: ${widget.config.metadata.name}',
-          color: GeistColors.black,
+          customColor: GeistColors.black,
         ),
         IconButton(
           icon: Icon(Icons.close, color: GeistColors.gray500),
@@ -210,7 +210,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
                 borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
                 border: Border.all(color: GeistColors.red.withValues(alpha: 0.3)),
               ),
-              child: GeistText.bodyMedium(_error!, color: GeistColors.red),
+              child: GeistText.bodyMedium(_error!, customColor: GeistColors.red),
             ),
             SizedBox(height: GeistSpacing.lg),
           ],
@@ -247,7 +247,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
               GeistText.headingMedium('Status: ', fontWeight: FontWeight.bold),
               GeistText.headingMedium(
                 _result!.status.name.toUpperCase(), 
-                color: statusColor,
+                customColor: statusColor,
                 fontWeight: FontWeight.bold,
               ),
               Spacer(),
@@ -287,7 +287,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: GeistText.bodyMedium(v.toString(), color: GeistColors.gray500),
+                        child: GeistText.bodyMedium(v.toString(), customColor: GeistColors.gray500),
                       ),
                     ],
                   ),
