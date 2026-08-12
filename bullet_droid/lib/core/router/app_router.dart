@@ -121,7 +121,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppPath.licenses,
         name: AppRoute.licenses,
-        builder: (context, state) => const BulletDroidLicensePage(),
+        builder: (context, state) => const BulletDroid2UltimeLicensePage(),
       ),
     ],
   );

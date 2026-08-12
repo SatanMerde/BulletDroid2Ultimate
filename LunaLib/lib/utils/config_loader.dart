@@ -4,6 +4,15 @@ import '../parsing/loli_parser.dart';
 import '../core/app_configuration.dart';
 import '../services/file_system_service.dart';
 
+/// Supported config file extensions
+const List<String> supportedConfigExtensions = ['.loli', '.svb', '.anom', '.opk'];
+
+/// Check if a file path has a supported config extension
+bool isSupportedConfigExtension(String filePath) {
+  final lowerPath = filePath.toLowerCase();
+  return supportedConfigExtensions.any((ext) => lowerPath.endsWith(ext));
+}
+
 /// Result of loading a config file with metadata
 class ConfigLoadResult {
   final Config config;
@@ -23,16 +32,15 @@ class ConfigLoadResult {
   });
 }
 
-/// Utility class for loading .loli configuration files
+/// Utility class for loading config files (.loli, .svb, .anom, .opk)
 class ConfigLoader {
-  /// Load a single .loli file from the given path
+  /// Load a single config file from the given path (.loli, .svb, .anom, .opk)
   static Future<Config> loadFromFile(String filePath) async {
     // Validate file extension
-    // Disable file extension validation for now, testing .svb files
-    // if (!filePath.toLowerCase().endsWith('.loli')) {
-    //   throw FormatException(
-    //       'Invalid file extension. Expected .loli file: $filePath');
-    // }
+    if (!isSupportedConfigExtension(filePath)) {
+      throw FormatException(
+          'Unsupported file extension. Expected .loli, .svb, .anom, or .opk file: $filePath');
+    }
 
     // Check if file exists
     if (!await fileSystemService.exists(filePath)) {
@@ -56,22 +64,25 @@ class ConfigLoader {
     }
   }
 
-  /// Load multiple .loli files from a directory
+  /// Load multiple config files from a directory (.loli, .svb, .anom, .opk)
   static Future<List<Config>> loadFromDirectory(String directoryPath,
       {bool recursive = false}) async {
     final configs = <Config>[];
 
     try {
-      final files = await fileSystemService.listDirectory(directoryPath,
-          extension: '.loli');
+      // Load configs with all supported extensions
+      for (final ext in supportedConfigExtensions) {
+        final files = await fileSystemService.listDirectory(directoryPath,
+            extension: ext);
 
-      for (final filePath in files) {
-        try {
-          final config = await loadFromFile(filePath);
-          configs.add(config);
-        } catch (e) {
-          // ignore: avoid_print
-          if (AppConfiguration.debugMode) print('Error loading $filePath: $e');
+        for (final filePath in files) {
+          try {
+            final config = await loadFromFile(filePath);
+            configs.add(config);
+          } catch (e) {
+            // ignore: avoid_print
+            if (AppConfiguration.debugMode) print('Error loading $filePath: $e');
+          }
         }
       }
     } catch (e) {
@@ -82,7 +93,7 @@ class ConfigLoader {
     return configs;
   }
 
-  /// Check if a file is a valid .loli file
+  /// Check if a file is a valid config file (.loli, .svb, .anom, .opk)
   static Future<bool> isValidLoliFile(String filePath) async {
     try {
       await loadFromFile(filePath);

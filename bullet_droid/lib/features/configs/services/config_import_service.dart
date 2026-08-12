@@ -6,11 +6,15 @@ class ConfigImportService {
   /// Open a file picker and parse the selected config.
   /// Returns null if the user cancels.
   Future<({Config config, String filePath})?> pickConfigAndParse() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.any,
+    );
 
     if (result == null || result.files.isEmpty) return null;
 
-    final path = result.files.first.path!;
+    final path = result.files.first.path;
+    if (path == null) return null;
     final config = await ConfigLoader.loadFromFile(path);
     return (config: config, filePath: path);
   }

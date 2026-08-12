@@ -113,7 +113,7 @@ class BackgroundService {
       if (!isRunning) {
         await FlutterForegroundTask.startService(
           serviceId: 101,
-          notificationTitle: 'BulletDroid',
+          notificationTitle: 'BulletDroid2Ultime',
           notificationText: 'Runners active: $activeRunnerCount',
           notificationIcon: null,
           callback: _startCallback,
@@ -142,7 +142,7 @@ class BackgroundService {
         return;
       }
       await FlutterForegroundTask.updateService(
-        notificationTitle: 'BulletDroid',
+        notificationTitle: 'BulletDroid2Ultime',
         notificationText: 'Runners active: $activeRunnerCount',
       );
       _currentRunnerCount = activeRunnerCount;

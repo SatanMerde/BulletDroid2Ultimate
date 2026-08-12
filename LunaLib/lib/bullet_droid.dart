@@ -56,7 +56,7 @@ class LunaLib {
     }
   }
 
-  /// Parse a .loli config file content into a Config object
+  /// Parse a config file content (.loli/.svb/.anom/.opk) into a Config object
   static Config parseConfig(String loliCode) {
     return LoliParser.parseConfig(loliCode);
   }
@@ -75,13 +75,13 @@ class LunaLib {
         maxConcurrency: maxConcurrency ?? AppConfiguration.maxConcurrency);
   }
 
-  /// Parse and execute a .loli config in one step
+  /// Parse and execute a config in one step
   static Future<BotData> runLoliCode(String loliCode, String input) async {
     final config = parseConfig(loliCode);
     return executeConfig(config, input);
   }
 
-  /// Parse and execute a .loli config with multiple inputs
+  /// Parse and execute a config with multiple inputs
   static Future<List<BotData>> runLoliCodeMultiple(
       String loliCode, List<String> inputs,
       {int? maxConcurrency}) async {

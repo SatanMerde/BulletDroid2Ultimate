@@ -208,13 +208,14 @@ class ConfigsNotifier extends StateNotifier<ConfigsState> {
 
     // Check for specific block types by ID
     for (final block in config.blocks) {
-      if (block.id.contains('REQUEST') && !tags.contains('HTTP')) {
+      final blockId = block.id.toLowerCase();
+      if (blockId.contains('request') && !tags.contains('HTTP')) {
         tags.add('HTTP');
       }
-      if (block.id.contains('PARSE') && !tags.contains('Parser')) {
+      if (blockId.contains('parse') && !tags.contains('Parser')) {
         tags.add('Parser');
       }
-      if (block.id.contains('KEYCHECK') && !tags.contains('KeyCheck')) {
+      if (blockId.contains('keycheck') && !tags.contains('KeyCheck')) {
         tags.add('KeyCheck');
       }
     }

@@ -521,7 +521,7 @@ class _BlocksSectionState extends ConsumerState<_BlocksSection> {
 
       if (settingsStart == -1 || scriptStart == -1) {
         throw Exception(
-          'Invalid .loli config format: missing [SETTINGS] or [SCRIPT] sections',
+          'Invalid config format: missing [SETTINGS] or [SCRIPT] sections',
         );
       }
 
@@ -546,8 +546,10 @@ class _BlocksSectionState extends ConsumerState<_BlocksSection> {
   }
 
   bool _validateLoliCode(String text) {
-    if (text.contains('BLOCK:') && !text.contains('ENDBLOCK')) {
-      _showErrorMessage('Unmatched BLOCK/ENDBLOCK statements');
+    final blockCount = 'BLOCK:'.allMatches(text).length;
+    final endBlockCount = 'ENDBLOCK'.allMatches(text).length;
+    if (blockCount != endBlockCount) {
+      _showErrorMessage('Mismatched BLOCK/ENDBLOCK statements ($blockCount BLOCK vs $endBlockCount ENDBLOCK)');
       return false;
     }
     return true;
@@ -1451,7 +1453,7 @@ class _CustomInputsTabState extends ConsumerState<_CustomInputsTab> {
 
       if (settingsStart == -1 || scriptStart == -1) {
         throw Exception(
-          'Invalid .loli config format: missing [SETTINGS] or [SCRIPT] sections',
+          'Invalid config format: missing [SETTINGS] or [SCRIPT] sections',
         );
       }
 

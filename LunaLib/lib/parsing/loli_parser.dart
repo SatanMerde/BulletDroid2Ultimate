@@ -7,7 +7,7 @@ import '../blocks/base/block_instance.dart';
 
 class LoliParser {
   static Config parseConfig(String loliCode) {
-    // Parse either a full .loli config with [SETTINGS]/[SCRIPT] sections
+    // Parse either a full config with [SETTINGS]/[SCRIPT] sections
     // or a plain LoliScript file
     if (loliCode.contains('[SETTINGS]') && loliCode.contains('[SCRIPT]')) {
       return _parseFullLoliConfig(loliCode);
@@ -17,7 +17,7 @@ class LoliParser {
     }
   }
 
-  /// Parse a full .loli config with [SETTINGS] and [SCRIPT] sections
+  /// Parse a full config with [SETTINGS] and [SCRIPT] sections
   static Config _parseFullLoliConfig(String loliCode) {
     // Find the positions of [SETTINGS] and [SCRIPT]
     final settingsStart = loliCode.indexOf('[SETTINGS]');
@@ -25,7 +25,7 @@ class LoliParser {
 
     if (settingsStart == -1 || scriptStart == -1) {
       throw FormatException(
-          'Invalid .loli config format: missing [SETTINGS] or [SCRIPT] sections');
+          'Invalid config format: missing [SETTINGS] or [SCRIPT] sections');
     }
 
     // Extract settings JSON
@@ -39,7 +39,7 @@ class LoliParser {
 
     if (settingsJson.isEmpty || scriptContent.isEmpty) {
       throw FormatException(
-          'Invalid .loli config: empty SETTINGS or SCRIPT content');
+          'Invalid config: empty SETTINGS or SCRIPT content');
     }
 
     ConfigSettings settings;

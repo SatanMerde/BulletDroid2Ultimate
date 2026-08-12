@@ -221,7 +221,7 @@ class _RunnerScreenState extends ConsumerState<RunnerScreen>
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'BulletDroid',
+                'BulletDroid2Ultime',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontSize: 21,
                   fontWeight: FontWeight.w500,
