@@ -243,18 +243,18 @@ class _OverviewTab extends StatelessWidget {
                 ),
                 SizedBox(height: GeistSpacing.lg),
                 _buildTwoColumnInfo(context, [
-                  ('Name', config.settings.name),
+                  ('Name', config.settings.name.isNotEmpty ? config.settings.name : config.metadata.name),
                   (
                     'Author',
-                    config.settings.author == ""
-                        ? "Unknown"
-                        : config.settings.author,
+                    config.settings.author.isNotEmpty
+                        ? config.settings.author
+                        : (config.metadata.author.isNotEmpty ? config.metadata.author : "Unknown"),
                   ),
                   (
                     'Version',
-                    config.settings.version.isEmpty
-                        ? 'N/A'
-                        : config.settings.version,
+                    config.settings.version.isNotEmpty
+                        ? config.settings.version
+                        : (config.metadata.version.isNotEmpty ? config.metadata.version : 'N/A'),
                   ),
                   (
                     'Wordlist 1',
