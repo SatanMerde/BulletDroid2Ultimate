@@ -94,7 +94,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
     return Dialog(
       backgroundColor: GeistColors.lightBackground,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(GeistBorders.radiusLg),
+        borderRadius: BorderRadius.circular(GeistBorders.radiusLarge),
       ),
       child: Container(
         width: 800, // Make it wide enough to view logs comfortably

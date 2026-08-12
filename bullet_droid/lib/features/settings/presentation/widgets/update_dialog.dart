@@ -88,7 +88,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
     return Dialog(
       backgroundColor: GeistColors.lightBackground,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(GeistBorders.radiusLg),
+        borderRadius: BorderRadius.circular(GeistBorders.radiusLarge),
       ),
       child: Container(
         width: 400,
