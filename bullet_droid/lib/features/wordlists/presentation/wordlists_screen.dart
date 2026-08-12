@@ -492,23 +492,19 @@ class _WordlistsScreenState extends ConsumerState<WordlistsScreen>
           ),
           // Main content
           AnimatedBuilder(
-            animation: animation,
+                  animation: animation,
             builder: (context, child) {
               return Transform.translate(
                 offset: Offset(animation.value, 0),
                 child: GestureDetector(
                   onHorizontalDragUpdate: (details) {
                     final currentValue = controller.value;
-                    final delta = details.delta.dx / 300;
+                    // Since Tween goes from 0.0 to -60.0, we want leftward drag (negative dx) to increase controller.value towards 1.0.
+                    // Divide by 60 to make the drag exactly match the finger position (60 pixels total width).
+                    final delta = -(details.delta.dx / 60);
 
-                    // Allow left swipe to open and right swipe to close
-                    if (details.delta.dx < 0) {
-                      final newValue = (currentValue - delta).clamp(0.0, 1.0);
-                      controller.value = newValue;
-                    } else if (details.delta.dx > 0 && currentValue > 0) {
-                      final newValue = (currentValue - delta).clamp(0.0, 1.0);
-                      controller.value = newValue;
-                    }
+                    final newValue = (currentValue + delta).clamp(0.0, 1.0);
+                    controller.value = newValue;
                   },
                   onHorizontalDragEnd: (details) {
                     // Consider both position and velocity for more natural feel
