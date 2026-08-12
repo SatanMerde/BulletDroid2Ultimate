@@ -43,12 +43,14 @@ class KeycheckBlock extends BlockInstance {
               break;
             case 'CUSTOM':
               data.status = BotStatus.CUSTOM;
+              if (banOnToCheck) data.proxyBanned = true;
               break;
             default:
               // Handle custom status names
               if (keychain.resultStatus.isNotEmpty) {
                 data.status = BotStatus.CUSTOM;
                 data.customStatus = keychain.resultStatus;
+                if (banOnToCheck) data.proxyBanned = true;
               } else {
                 data.status = BotStatus.NONE;
               }
@@ -63,14 +65,6 @@ class KeycheckBlock extends BlockInstance {
       }
 
       data.log('No keychain matched');
-
-      // If banOnToCheck is enabled and no keychain matched, ban the proxy and set status to TOCHECK
-      if (banOnToCheck && !banOn4XX) {
-        data.proxyBanned = true;
-        data.status = BotStatus.TOCHECK;
-        // data.log(
-        //     'KEYCHECK: BAN keychain matched with BanOnToCheck=True: Proxy will be banned, status set to TOCHECK');
-      }
 
     } catch (e) {
       data.log('Keycheck failed: $e');

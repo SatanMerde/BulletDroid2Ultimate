@@ -84,8 +84,8 @@ class ExecutionEngine {
     }
 
     if (data.status == BotStatus.NONE) {
-      data.status = BotStatus.TOCHECK;
-      data.log('Final status: TOCHECK (converted from NONE)');
+      data.status = BotStatus.FAIL;
+      data.log('Final status: FAIL (converted from NONE)');
     }
 
     data.log('Config execution completed with status: ${data.status}');
