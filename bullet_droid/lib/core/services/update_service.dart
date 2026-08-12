@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:open_file/open_file.dart';
+import 'package:open_filex/open_filex.dart';
 
 class UpdateInfo {
   final bool updateAvailable;
@@ -91,7 +91,7 @@ class UpdateService {
         },
       );
 
-      final result = await OpenFile.open(savePath);
+      final result = await OpenFilex.open(savePath);
       if (result.type != ResultType.done) {
         throw Exception('Failed to open APK: ${result.message}');
       }
