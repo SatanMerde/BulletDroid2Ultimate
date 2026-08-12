@@ -105,7 +105,7 @@ class _RunnerScreenState extends ConsumerState<RunnerScreen>
   }
 
   Future<void> _openGithubRepo() async {
-    final uri = Uri.parse('https://github.com/DannyLuna17/BulletDroid2');
+    final uri = Uri.parse('https://github.com/SatanMerde/BulletDroid2Ultimate');
     try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (_) {
