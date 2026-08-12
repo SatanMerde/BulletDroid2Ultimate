@@ -1,4 +1,4 @@
-package com.dannyluna.bullet_droid
+package com.satanmerde.bulletdroid2ultimate
 
 import io.flutter.embedding.android.FlutterActivity
 

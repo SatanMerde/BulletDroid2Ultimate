@@ -7,7 +7,7 @@ plugins {
 
 android {
     ndkVersion = "27.0.12077973"
-    namespace = "com.dannyluna.bullet_droid"
+    namespace = "com.satanmerde.bulletdroid2ultimate"
     compileSdk = flutter.compileSdkVersion
 
     compileOptions {
@@ -21,7 +21,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.dannyluna.bullet_droid"
+        applicationId = "com.satanmerde.bulletdroid2ultimate"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
