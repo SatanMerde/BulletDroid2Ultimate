@@ -441,11 +441,10 @@ class LoliParser {
     return null;
   }
 
-  /// Sanitize JSON string by fixing invalid escape sequences
   static String _sanitizeJsonString(String jsonString) {
     final invalidEscapePattern = RegExp(r'\\([^"\\/bfnrtu])');
 
-    final sanitizedJson =
+    var sanitizedJson =
         jsonString.replaceAllMapped(invalidEscapePattern, (match) {
       final invalidChar = match.group(1);
       if (AppConfiguration.debugMode) {
@@ -455,6 +454,14 @@ class LoliParser {
       }
       return '\\\\$invalidChar';
     });
+
+    // Handle capitalized booleans often found in OpenBullet/SilverBullet configs
+    sanitizedJson = sanitizedJson.replaceAll(RegExp(r':\s*True\b'), ': true');
+    sanitizedJson = sanitizedJson.replaceAll(RegExp(r':\s*False\b'), ': false');
+
+    // Handle trailing commas (invalid in standard JSON but common in hand-edited configs)
+    sanitizedJson = sanitizedJson.replaceAll(RegExp(r',\s*\}'), '}');
+    sanitizedJson = sanitizedJson.replaceAll(RegExp(r',\s*\]'), ']');
 
     return sanitizedJson;
   }
