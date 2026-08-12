@@ -649,6 +649,7 @@ class ConfigExecutionsNotifier extends StateNotifier<List<ConfigExecution>> {
       custom: 0,
       bad: 0,
       toCheck: 0,
+      retries: 0,
       isRunning: false,
       startTime: null,
       endTime: null,
