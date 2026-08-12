@@ -48,8 +48,13 @@ class ProxyScraperService {
           final port = int.tryParse(parts[1]);
           
           if (port != null) {
+            final timestamp = DateTime.now().millisecondsSinceEpoch;
+            final random = (address.hashCode + port.hashCode).abs();
+            final uniqueId = '${timestamp}_$random';
+            
             parsedProxies.add(
               ProxyModel(
+                id: uniqueId,
                 address: address,
                 port: port,
                 type: type,
