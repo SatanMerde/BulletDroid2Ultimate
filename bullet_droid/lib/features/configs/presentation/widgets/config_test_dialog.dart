@@ -306,7 +306,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
             padding: EdgeInsets.all(GeistSpacing.md),
             decoration: BoxDecoration(
               color: GeistColors.gray800, // Dark terminal-like background
-              borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+              borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
             ),
             child: ListView.builder(
               itemCount: _result!.logs.length,
@@ -373,15 +373,15 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
         vertical: GeistSpacing.sm,
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+        borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
         borderSide: BorderSide(color: GeistColors.gray200),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+        borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
         borderSide: BorderSide(color: GeistColors.gray200),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(GeistBorders.radiusMd),
+        borderRadius: BorderRadius.circular(GeistBorders.radiusMedium),
         borderSide: BorderSide(color: GeistColors.blue),
       ),
     );

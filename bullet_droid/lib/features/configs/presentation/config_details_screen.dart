@@ -123,7 +123,7 @@ class _ConfigDetailsScreenState extends ConsumerState<ConfigDetailsScreen>
               padding: EdgeInsets.only(right: GeistSpacing.sm),
               child: GeistButton(
                 text: 'Test Config',
-                variant: GeistButtonVariant.secondary,
+                variant: GeistButtonVariant.outline,
                 size: GeistButtonSize.small,
                 icon: const Icon(Icons.bug_report, size: 16),
                 onPressed: () {
