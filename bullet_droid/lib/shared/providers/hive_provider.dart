@@ -85,4 +85,6 @@ class SettingsKeys {
   static const String autoSaveResults = 'auto_save_results';
   static const String proxyRetryCount = 'proxy_retry_count';
   static const String enableNotifications = 'enable_notifications';
+  static const String enableProxyMaintenance = 'enable_proxy_maintenance';
+  static const String enableLiveHitPush = 'enable_live_hit_push';
 }

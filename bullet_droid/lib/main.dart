@@ -6,11 +6,13 @@ import 'package:bullet_droid/core/router/app_router.dart';
 import 'package:bullet_droid/shared/providers/app_init_provider.dart';
 import 'package:bullet_droid/core/services/background_service.dart';
 import 'package:bullet_droid/core/services/image_precache_service.dart';
+import 'package:bullet_droid/core/services/notification_service.dart';
 
 void main() async {
   // App entrypoint. Ensure that Flutter bindings are ready, then the
   // Foreground service. After that, provide Riverpod at the root and render the app.
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.init();
   WidgetsBinding.instance.addPostFrameCallback((_) {
     BackgroundService.initialize();
   });

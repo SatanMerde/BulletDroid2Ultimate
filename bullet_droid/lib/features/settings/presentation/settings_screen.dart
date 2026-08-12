@@ -200,6 +200,62 @@ class SettingsScreen extends ConsumerWidget {
 
               SizedBox(height: GeistSpacing.xs),
 
+              Material(
+                color: GeistColors.transparent,
+                child: InkWell(
+                  onTap: () => context.goNamed(AppRoute.analytics),
+                  borderRadius: BorderRadius.circular(8),
+                  child: Padding(
+                    padding: EdgeInsets.all(GeistSpacing.lg),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(GeistSpacing.sm),
+                          decoration: BoxDecoration(
+                            color: GeistColors.black,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Icon(
+                            Icons.analytics,
+                            color: GeistColors.white,
+                            size: 20,
+                          ),
+                        ),
+
+                        SizedBox(width: GeistSpacing.lg),
+
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const GeistText(
+                                'Analytics & Dashboard',
+                                variant: GeistTextVariant.bodyLarge,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              SizedBox(height: GeistSpacing.xs),
+                              const GeistText(
+                                'View lifetime hits, CPM, and proxy health',
+                                variant: GeistTextVariant.bodySmall,
+                                customColor: GeistColors.gray600,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: GeistColors.gray600,
+                          size: 16,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: GeistSpacing.xs),
+
               // General Settings
               _buildSettingsSection(
                 context: context,
@@ -215,6 +271,14 @@ class SettingsScreen extends ConsumerWidget {
                     (value) => ref
                         .read(settingsProvider.notifier)
                         .setEnableNotifications(value),
+                  ),
+                  _buildToggleSetting(
+                    'Live Hit Push Notifications',
+                    'Get an instant push notification on SUCCESS',
+                    settings.enableLiveHitPush,
+                    (value) => ref
+                        .read(settingsProvider.notifier)
+                        .setEnableLiveHitPush(value),
                   ),
                 ],
               ),
@@ -269,6 +333,14 @@ class SettingsScreen extends ConsumerWidget {
                             .setProxyRetryCount(intValue);
                       }
                     },
+                  ),
+                  _buildToggleSetting(
+                    'Background Auto-Maintenance',
+                    'Automatically scrape and clean proxies',
+                    settings.enableProxyMaintenance,
+                    (value) => ref
+                        .read(settingsProvider.notifier)
+                        .setEnableProxyMaintenance(value),
                   ),
                 ],
               ),

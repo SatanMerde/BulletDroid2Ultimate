@@ -15,6 +15,7 @@ import 'package:bullet_droid/features/wordlists/providers/wordlists_provider.dar
 import 'package:bullet_droid/features/dashboard/providers/dashboard_provider.dart';
 import 'package:bullet_droid/features/settings/providers/settings_provider.dart';
 import 'package:bullet_droid/core/services/toast_service.dart';
+import 'package:bullet_droid/core/services/notification_service.dart';
 import 'package:bullet_droid/core/services/background_service.dart';
 import 'package:bullet_droid/core/utils/logging.dart';
 
@@ -966,6 +967,11 @@ class MultiRunnerNotifier extends StateNotifier<Map<String, RunnerInstance>> {
             progress.jobId,
           );
           processedSet.add(hitKey);
+          
+          final settings = _ref.read(settingsProvider);
+          if (settings.enableLiveHitPush) {
+            NotificationService.showHitNotification('Hit Found!', '🔥 ${hit.data} on $configName');
+          }
         }
       }
 

@@ -8,6 +8,7 @@ import 'package:bullet_droid/features/wordlists/providers/wordlists_provider.dar
 import 'package:bullet_droid/features/wordlists/providers/custom_wordlist_types_provider.dart';
 import 'package:bullet_droid/features/dashboard/providers/dashboard_provider.dart';
 import 'package:bullet_droid/features/runner/providers/runner_provider.dart';
+import 'package:bullet_droid/core/services/proxy_maintenance_service.dart';
 
 // Ensures storage/services/providers are ready so the UI can start in a consistent state.
 final appDataInitProvider = FutureProvider<void>((ref) async {
@@ -23,6 +24,9 @@ final appDataInitProvider = FutureProvider<void>((ref) async {
     _loadDashboardExecutions(ref),
     _initRunnerProvider(ref),
   ]);
+  
+  // Start background services that depend on loaded providers
+  ProxyMaintenanceService.start(ref);
 });
 
 Future<void> _loadConfigs(Ref ref) async {

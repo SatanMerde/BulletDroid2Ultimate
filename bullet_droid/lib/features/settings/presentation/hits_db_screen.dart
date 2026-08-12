@@ -780,15 +780,56 @@ class _HitsDbScreenState extends ConsumerState<HitsDbScreen>
       return;
     }
 
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: GeistColors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(GeistBorders.radiusLarge)),
+      ),
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: GeistSpacing.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GeistText.headingMedium('Export Format', fontWeight: FontWeight.bold),
+              SizedBox(height: GeistSpacing.md),
+              ListTile(
+                leading: Icon(Icons.short_text, color: GeistColors.blue),
+                title: GeistText.bodyLarge('Simple Export'),
+                subtitle: GeistText.bodySmall('Only user:pass / data'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _performExport(false);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.wrap_text, color: GeistColors.black),
+                title: GeistText.bodyLarge('Full Export + Capture'),
+                subtitle: GeistText.bodySmall('Includes captures, proxies, and config'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _performExport(true);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _performExport(bool fullCapture) async {
     try {
       final success = await ref
           .read(hitsDbProvider.notifier)
           .exportHitsToTxt(
-            includeProxy: true,
-            includeCapturedData: true,
-            includeConfig: true,
-            includeDate: true,
-            includeWordlist: true,
+            includeProxy: fullCapture,
+            includeCapturedData: fullCapture,
+            includeConfig: fullCapture,
+            includeDate: fullCapture,
+            includeWordlist: fullCapture,
           );
 
       if (mounted) {

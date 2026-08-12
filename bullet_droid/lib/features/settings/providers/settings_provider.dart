@@ -18,6 +18,8 @@ class AppSettings {
   final bool autoSaveResults;
   final int proxyRetryCount;
   final bool enableNotifications;
+  final bool enableProxyMaintenance;
+  final bool enableLiveHitPush;
 
   AppSettings({
     this.defaultThreads = 1,
@@ -25,6 +27,8 @@ class AppSettings {
     this.autoSaveResults = true,
     this.proxyRetryCount = 3,
     this.enableNotifications = true,
+    this.enableProxyMaintenance = false,
+    this.enableLiveHitPush = false,
   });
 
   AppSettings copyWith({
@@ -33,6 +37,8 @@ class AppSettings {
     bool? autoSaveResults,
     int? proxyRetryCount,
     bool? enableNotifications,
+    bool? enableProxyMaintenance,
+    bool? enableLiveHitPush,
   }) {
     return AppSettings(
       defaultThreads: defaultThreads ?? this.defaultThreads,
@@ -40,6 +46,8 @@ class AppSettings {
       autoSaveResults: autoSaveResults ?? this.autoSaveResults,
       proxyRetryCount: proxyRetryCount ?? this.proxyRetryCount,
       enableNotifications: enableNotifications ?? this.enableNotifications,
+      enableProxyMaintenance: enableProxyMaintenance ?? this.enableProxyMaintenance,
+      enableLiveHitPush: enableLiveHitPush ?? this.enableLiveHitPush,
     );
   }
 
@@ -56,6 +64,8 @@ class AppSettings {
         SettingsKeys.enableNotifications,
         defaultValue: true,
       ),
+      enableProxyMaintenance: box.get(SettingsKeys.enableProxyMaintenance, defaultValue: false),
+      enableLiveHitPush: box.get(SettingsKeys.enableLiveHitPush, defaultValue: false),
     );
   }
 }
@@ -92,6 +102,16 @@ class SettingsNotifier extends StateNotifier<AppSettings> {
     state = state.copyWith(enableNotifications: enable);
   }
 
+  void setEnableProxyMaintenance(bool enable) {
+    _settingsBox.put(SettingsKeys.enableProxyMaintenance, enable);
+    state = state.copyWith(enableProxyMaintenance: enable);
+  }
+
+  void setEnableLiveHitPush(bool enable) {
+    _settingsBox.put(SettingsKeys.enableLiveHitPush, enable);
+    state = state.copyWith(enableLiveHitPush: enable);
+  }
+
   void resetToDefaults() {
     _settingsBox.clear();
     state = AppSettings();
@@ -101,9 +121,8 @@ class SettingsNotifier extends StateNotifier<AppSettings> {
     _settingsBox.put(SettingsKeys.defaultTimeout, state.defaultTimeout);
     _settingsBox.put(SettingsKeys.autoSaveResults, state.autoSaveResults);
     _settingsBox.put(SettingsKeys.proxyRetryCount, state.proxyRetryCount);
-    _settingsBox.put(
-      SettingsKeys.enableNotifications,
-      state.enableNotifications,
-    );
+    _settingsBox.put(SettingsKeys.enableNotifications, state.enableNotifications);
+    _settingsBox.put(SettingsKeys.enableProxyMaintenance, state.enableProxyMaintenance);
+    _settingsBox.put(SettingsKeys.enableLiveHitPush, state.enableLiveHitPush);
   }
 }

@@ -14,6 +14,7 @@ import 'package:bullet_droid/features/proxies/presentation/working_proxies_scree
 import 'package:bullet_droid/features/settings/presentation/settings_screen.dart';
 import 'package:bullet_droid/features/settings/presentation/hits_db_screen.dart';
 import 'package:bullet_droid/features/settings/presentation/license_page.dart';
+import 'package:bullet_droid/features/settings/presentation/analytics_dashboard_screen.dart';
 import 'package:bullet_droid/features/wordlists/presentation/wordlists_screen.dart';
 import 'package:bullet_droid/features/wordlists/presentation/custom_wordlist_types_screen.dart';
 
@@ -109,6 +110,14 @@ final routerProvider = Provider<GoRouter>((ref) {
               child: const HitsDbScreen(),
             ),
           ),
+          GoRoute(
+            path: AppPath.analytics,
+            name: AppRoute.analytics,
+            pageBuilder: (context, state) => NoTransitionPage(
+              key: state.pageKey,
+              child: const AnalyticsDashboardScreen(),
+            ),
+          ),
         ],
       ),
       GoRoute(
@@ -146,6 +155,7 @@ class AppRoute {
   static const String configDetails = 'config-details';
   static const String configEditor = 'config-editor';
   static const String licenses = 'licenses';
+  static const String analytics = 'analytics';
 }
 
 /// Central route path definitions
@@ -161,4 +171,5 @@ class AppPath {
   static const String configDetails = '/configs/:id';
   static const String configEditor = '/configs/editor/new';
   static const String licenses = '/licenses';
+  static const String analytics = '/analytics';
 }
