@@ -16,7 +16,7 @@ import 'package:bullet_droid/core/design_tokens/borders.dart';
 import 'package:bullet_droid/core/design_tokens/breakpoints.dart';
 import 'package:bullet_droid/core/components/atoms/geist_text.dart';
 import 'package:bullet_droid/core/components/atoms/geist_button.dart';
-
+import 'package:bullet_droid/features/configs/presentation/widgets/config_test_dialog.dart';
 import 'package:bullet_droid/core/extensions/toast_extensions.dart';
 import 'package:bullet_droid/core/utils/logging.dart';
 
@@ -118,6 +118,19 @@ class _ConfigDetailsScreenState extends ConsumerState<ConfigDetailsScreen>
           ],
         ),
         actions: [
+          if (_config != null)
+            Padding(
+              padding: EdgeInsets.only(right: GeistSpacing.sm),
+              child: GeistButton(
+                text: 'Test Config',
+                variant: GeistButtonVariant.secondary,
+                size: GeistButtonSize.small,
+                icon: const Icon(Icons.bug_report, size: 16),
+                onPressed: () {
+                  ConfigTestDialog.show(context, _config!);
+                },
+              ),
+            ),
           Padding(
             padding: EdgeInsets.only(right: GeistSpacing.md),
             child: GeistButton(
