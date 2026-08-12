@@ -220,7 +220,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
             child: GeistButton(
               text: _isTesting ? 'Testing...' : 'Run Test',
               onPressed: _isTesting ? () {} : _runTest,
-              variant: GeistButtonVariant.primary,
+              variant: GeistButtonVariant.filled,
             ),
           ),
         ],
@@ -254,7 +254,7 @@ class _ConfigTestDialogState extends State<ConfigTestDialog> {
               GeistButton(
                 text: 'Test Again',
                 onPressed: () => setState(() => _result = null),
-                variant: GeistButtonVariant.secondary,
+                variant: GeistButtonVariant.outline,
                 size: GeistButtonSize.small,
               ),
             ],

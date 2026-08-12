@@ -123,7 +123,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
           GeistButton(
             text: 'Close',
             onPressed: () => Navigator.of(context).pop(),
-            variant: GeistButtonVariant.secondary,
+            variant: GeistButtonVariant.outline,
           ),
         ],
       );
@@ -142,7 +142,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
           GeistButton(
             text: 'Close',
             onPressed: () => Navigator.of(context).pop(),
-            variant: GeistButtonVariant.secondary,
+            variant: GeistButtonVariant.outline,
           ),
         ],
       );
@@ -207,7 +207,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
               GeistButton(
                 text: 'Update Now',
                 onPressed: _startDownload,
-                variant: GeistButtonVariant.primary,
+                variant: GeistButtonVariant.filled,
               ),
             ],
           ),
