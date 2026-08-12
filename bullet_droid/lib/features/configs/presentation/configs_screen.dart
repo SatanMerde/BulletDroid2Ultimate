@@ -704,6 +704,7 @@ class _ConfigsScreenState extends ConsumerState<ConfigsScreen>
       onPressed: () {
         showModalBottomSheet(
           context: context,
+          useRootNavigator: true,
           backgroundColor: GeistColors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(GeistBorders.radiusLarge)),

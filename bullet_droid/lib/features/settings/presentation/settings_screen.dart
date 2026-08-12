@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:bullet_droid/core/design_tokens/colors.dart';
 import 'package:bullet_droid/core/design_tokens/spacing.dart';
@@ -282,7 +283,15 @@ class SettingsScreen extends ConsumerWidget {
                 description: null,
                 icon: Icons.info_outline,
                 children: [
-                  _buildReadOnlySetting('Version', '2.0.0'),
+                  FutureBuilder<PackageInfo>(
+                    future: PackageInfo.fromPlatform(),
+                    builder: (context, snapshot) {
+                      final version = snapshot.hasData
+                          ? 'v${snapshot.data!.version}'
+                          : 'Loading...';
+                      return _buildReadOnlySetting('Version', version);
+                    },
+                  ),
                   _buildCustomSetting(
                     'Open Source Licenses',
                     'View third-party licenses',

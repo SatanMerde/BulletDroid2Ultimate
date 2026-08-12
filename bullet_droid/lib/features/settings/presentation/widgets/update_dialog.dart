@@ -179,7 +179,12 @@ class _UpdateDialogState extends State<UpdateDialog> {
             children: [
               GeistText.bodyMedium('Release Notes:', fontWeight: FontWeight.bold),
               SizedBox(height: GeistSpacing.sm),
-              GeistText.bodySmall(_updateInfo!.releaseNotes, maxLines: 5, overflow: TextOverflow.ellipsis),
+              Container(
+                constraints: BoxConstraints(maxHeight: 150),
+                child: SingleChildScrollView(
+                  child: GeistText.bodySmall(_updateInfo!.releaseNotes),
+                ),
+              ),
             ],
           ),
         ),

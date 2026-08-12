@@ -611,6 +611,7 @@ class _WorkingProxiesScreenState extends ConsumerState<WorkingProxiesScreen> {
   Future<void> _importProxies() async {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: GeistColors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(GeistBorders.radiusLarge)),

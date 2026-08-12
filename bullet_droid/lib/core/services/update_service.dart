@@ -35,7 +35,24 @@ class UpdateService {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final latestVersion = data['tag_name'] as String;
-        final releaseNotes = data['body'] as String? ?? 'No release notes available.';
+        String releaseNotes = data['body'] as String? ?? '';
+        
+        // If release notes are empty or just the generic GitHub changelog link, fetch recent commits
+        if (releaseNotes.trim().isEmpty || releaseNotes.contains('**Full Changelog**:')) {
+          try {
+            final commitsResponse = await http.get(Uri.parse('https://api.github.com/repos/SatanMerde/BulletDroid2Ultimate/commits?per_page=5'));
+            if (commitsResponse.statusCode == 200) {
+              final commitsData = jsonDecode(commitsResponse.body) as List<dynamic>;
+              final messages = commitsData.map((c) => '• ${c['commit']['message'].toString().split('\n').first}').toList();
+              releaseNotes = messages.join('\n');
+            } else {
+              releaseNotes = 'Bug fixes and performance improvements.';
+            }
+          } catch (_) {
+            releaseNotes = 'Bug fixes and performance improvements.';
+          }
+        }
+        
         final assets = data['assets'] as List<dynamic>?;
         
         String downloadUrl = data['html_url'] as String;
