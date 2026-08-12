@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Color tokens for BulletDroid2Ultime
+/// Color tokens for BulletDroid2Ultimate
 class GeistColors {
   // Base neutral colors
   static const Color black = Color(0xFF000000);

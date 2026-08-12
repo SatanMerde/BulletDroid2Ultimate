@@ -15,11 +15,11 @@ void main() async {
     BackgroundService.initialize();
   });
 
-  runApp(const ProviderScope(child: BulletDroid2UltimeApp()));
+  runApp(const ProviderScope(child: BulletDroid2UltimateApp()));
 }
 
-class BulletDroid2UltimeApp extends ConsumerWidget {
-  const BulletDroid2UltimeApp({super.key});
+class BulletDroid2UltimateApp extends ConsumerWidget {
+  const BulletDroid2UltimateApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,20 +36,20 @@ class BulletDroid2UltimeApp extends ConsumerWidget {
         });
 
         return MaterialApp.router(
-          title: 'BulletDroid2Ultime',
+          title: 'BulletDroid2Ultimate',
           theme: AppTheme.lightTheme(),
           routerConfig: router,
           debugShowCheckedModeBanner: false,
         );
       },
       loading: () => MaterialApp(
-        title: 'BulletDroid2Ultime',
+        title: 'BulletDroid2Ultimate',
         theme: AppTheme.lightTheme(),
         debugShowCheckedModeBanner: false,
         home: const _StartupLoadingScreen(),
       ),
       error: (error, stack) => MaterialApp(
-        title: 'BulletDroid2Ultime',
+        title: 'BulletDroid2Ultimate',
         theme: AppTheme.lightTheme(),
         debugShowCheckedModeBanner: false,
         builder: (context, child) {
@@ -119,7 +119,7 @@ class _StartupLoadingScreen extends StatelessWidget {
               ),
               // Title
               Text(
-                'BulletDroid2Ultime',
+                'BulletDroid2Ultimate',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 12),

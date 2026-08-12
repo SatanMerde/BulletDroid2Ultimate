@@ -151,7 +151,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GeistText.headingLarge(
-          'BulletDroid2Ultime',
+          'BulletDroid2Ultimate',
           color: GeistTextColor.primary,
           customColor: Theme.of(context).colorScheme.onSurface,
         ),

@@ -994,7 +994,7 @@ class _WorkingProxiesScreenState extends ConsumerState<WorkingProxiesScreen> {
         final httpRequest =
             'GET ${uri.path.isEmpty ? '/' : uri.path}${uri.hasQuery ? '?${uri.query}' : ''} HTTP/1.1\r\n';
         final fullRequest =
-            '${httpRequest}Host: ${uri.host}\r\nUser-Agent: BulletDroid/1.0\r\nConnection: close\r\n\r\n';
+            '${httpRequest}Host: ${uri.host}\r\nUser-Agent: BulletDroid2Ultimate/1.0\r\nConnection: close\r\n\r\n';
 
         _addLog(
           'Sending HTTPS request via SOCKS: ${httpRequest.trim()}',
@@ -1102,7 +1102,7 @@ class _WorkingProxiesScreenState extends ConsumerState<WorkingProxiesScreen> {
         // Plain HTTP over SOCKS tunnel
         String request = 'GET ${uri.toString()} HTTP/1.1\r\n';
         request += 'Host: ${uri.host}\r\n';
-        request += 'User-Agent: BulletDroid/1.0\r\n';
+        request += 'User-Agent: BulletDroid2Ultimate/1.0\r\n';
         request += 'Connection: close\r\n';
         request += '\r\n';
 
@@ -1444,7 +1444,7 @@ class _WorkingProxiesScreenState extends ConsumerState<WorkingProxiesScreen> {
       } else {
         request = 'GET $testUrl HTTP/1.1\r\n';
         request += 'Host: $host\r\n';
-        request += 'User-Agent: BulletDroid/1.0\r\n';
+        request += 'User-Agent: BulletDroid2Ultimate/1.0\r\n';
         if (proxy.username != null && proxy.password != null) {
           final credentials = base64Encode(
             utf8.encode('${proxy.username}:${proxy.password}'),
@@ -1702,7 +1702,7 @@ class _WorkingProxiesScreenState extends ConsumerState<WorkingProxiesScreen> {
       final httpRequest =
           'GET ${uri.path.isEmpty ? '/' : uri.path} HTTP/1.1\r\n';
       final fullRequest =
-          '${httpRequest}Host: ${uri.host}\r\nUser-Agent: BulletDroid/1.0\r\nConnection: close\r\n\r\n';
+          '${httpRequest}Host: ${uri.host}\r\nUser-Agent: BulletDroid2Ultimate/1.0\r\nConnection: close\r\n\r\n';
 
       _addLog(
         'Sending HTTPS request: ${httpRequest.trim()}',

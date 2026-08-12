@@ -1,4 +1,4 @@
-/// Spacing tokens for BulletDroid2Ultime
+/// Spacing tokens for BulletDroid2Ultimate
 class GeistSpacing {
   // Base spacing unit
   static const double base = 4.0;

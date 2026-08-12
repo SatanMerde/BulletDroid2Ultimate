@@ -7,14 +7,14 @@ import 'package:bullet_droid/core/design_tokens/spacing.dart';
 import 'package:bullet_droid/core/components/atoms/geist_text.dart';
 import 'package:bullet_droid/core/components/atoms/geist_button.dart';
 
-class BulletDroid2UltimeLicensePage extends StatefulWidget {
-  const BulletDroid2UltimeLicensePage({super.key});
+class BulletDroid2UltimateLicensePage extends StatefulWidget {
+  const BulletDroid2UltimateLicensePage({super.key});
 
   @override
-  State<BulletDroid2UltimeLicensePage> createState() => _BulletDroid2UltimeLicensePageState();
+  State<BulletDroid2UltimateLicensePage> createState() => _BulletDroid2UltimateLicensePageState();
 }
 
-class _BulletDroid2UltimeLicensePageState extends State<BulletDroid2UltimeLicensePage> {
+class _BulletDroid2UltimateLicensePageState extends State<BulletDroid2UltimateLicensePage> {
   List<LicenseEntry>? _licenses;
   bool _isLoading = true;
   String? _error;
@@ -101,7 +101,7 @@ class _BulletDroid2UltimeLicensePageState extends State<BulletDroid2UltimeLicens
               Icon(Icons.code, color: GeistColors.gray600, size: 20),
               SizedBox(width: GeistSpacing.sm),
               GeistText(
-                'BulletDroid2Ultime',
+                'BulletDroid2Ultimate',
                 variant: GeistTextVariant.headingSmall,
                 fontWeight: FontWeight.w600,
               ),

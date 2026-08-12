@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Typography tokens for BulletDroid2Ultime
+/// Typography tokens for BulletDroid2Ultimate
 class GeistTypography {
   // Font families
   static const String geistSans = 'Geist';
