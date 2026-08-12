@@ -30,22 +30,33 @@ Puisque cette version a été conçue par une IA, il se peut que certaines chose
 - **Vous avez trouvé un bug ?** 
 - **Vous souhaitez une nouvelle fonctionnalité ?**
 
-N'hésitez pas à ouvrir une **Issue** directement sur ce dépôt GitHub (https://github.com/SatanMerde/BulletDroidUltimate). Décrivez votre problème ou votre idée, et l'IA (ou la communauté) pourra s'en charger lors de la prochaine mise à jour !
+N'hésitez pas à ouvrir une **Issue** directement sur ce dépôt GitHub (https://github.com/SatanMerde/BulletDroid2Ultimate). Décrivez votre problème ou votre idée, et l'IA (ou la communauté) pourra s'en charger lors de la prochaine mise à jour !
 
 ---
 
-## 🛠️ Installation & Compilation
+## 📥 Installation Rapide (Recommandé)
 
-(Pour les développeurs souhaitant compiler l'application eux-mêmes)
+Pour installer l'application sur votre téléphone Android :
+
+1. Rendez-vous sur la page des [Releases (Versions)](https://github.com/SatanMerde/BulletDroid2Ultimate/releases) de ce dépôt GitHub.
+2. Téléchargez le fichier **`BulletDroid2Ultimate.apk`** de la dernière version disponible.
+3. Ouvrez le fichier sur votre téléphone et installez-le. 
+> 💡 *Cette version "Ultimate" possède un identifiant de paquet unique. Vous pouvez donc l'installer et l'utiliser en même temps que l'application BulletDroid2 originale sans aucun conflit !*
+
+---
+
+## 🛠️ Compilation Manuelle
+
+*(Pour les développeurs souhaitant compiler l'application eux-mêmes à partir du code source)*
 
 1. Assurez-vous d'avoir [Flutter](https://flutter.dev/) installé (SDK 3.8.1 ou plus récent).
 2. Clonez le dépôt :
    ```bash
-   git clone https://github.com/SatanMerde/BulletDroidUltimate.git
+   git clone https://github.com/SatanMerde/BulletDroid2Ultimate.git
    ```
 3. Naviguez dans le dossier de l'application :
    ```bash
-   cd BulletDroidUltimate/bullet_droid
+   cd BulletDroid2Ultimate/bullet_droid
    ```
 4. Récupérez les dépendances et lancez le build :
    ```bash
