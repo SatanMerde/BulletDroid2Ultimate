@@ -569,6 +569,7 @@ class JobRunner {
   final List<ValidDataResult> _realFails = [];
   final List<ValidDataResult> _realCustoms = [];
   final List<ValidDataResult> _realToChecks = [];
+  int _realRetries = 0;
 
   JobRunner({
     required this.jobId,
@@ -596,7 +597,7 @@ class JobRunner {
         _realCustoms.add(validResult);
         break;
       case BotStatus.RETRY:
-        _realToChecks.add(validResult);
+        _realRetries++;
         break;
       case BotStatus.TOCHECK:
         _realToChecks.add(validResult);
@@ -746,6 +747,7 @@ class JobRunner {
             fails: _realFails,
             customs: _realCustoms,
             toChecks: _realToChecks,
+            results: {'retries': _realRetries},
             cpm: cpm,
           ),
         );
@@ -830,7 +832,9 @@ class JobRunner {
                 customs.add(validResult);
                 break;
               // RETRY already handled previously
+              // RETRY is handled by _realRetries in _updateRealCounters
               case BotStatus.RETRY:
+                break;
               case BotStatus.TOCHECK:
                 toChecks.add(validResult);
                 break;
@@ -898,7 +902,6 @@ class JobRunner {
                   customs.add(validResult);
                   break;
                 case BotStatus.RETRY:
-                  toChecks.add(validResult);
                   break;
                 case BotStatus.TOCHECK:
                   toChecks.add(validResult);
@@ -942,6 +945,7 @@ class JobRunner {
           fails: fails,
           customs: customs,
           toChecks: toChecks,
+          results: {'retries': _realRetries},
           cpm: completionCpm,
         ),
       );
@@ -967,6 +971,7 @@ class JobRunner {
           fails: <ValidDataResult>[],
           customs: <ValidDataResult>[],
           toChecks: <ValidDataResult>[],
+          results: {'retries': _realRetries},
           cpm: 0,
           error: e.toString(),
         ),

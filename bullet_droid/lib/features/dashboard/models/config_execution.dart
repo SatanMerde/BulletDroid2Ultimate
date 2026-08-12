@@ -11,6 +11,7 @@ class ConfigExecution {
   final int custom;
   final int bad;
   final int toCheck;
+  final int retries;
   final bool isRunning;
   final bool isPlaceholder;
   final DateTime? startTime;
@@ -33,6 +34,7 @@ class ConfigExecution {
     required this.custom,
     required this.bad,
     required this.toCheck,
+    required this.retries,
     required this.isRunning,
     this.isPlaceholder = false,
     this.startTime,
@@ -66,6 +68,7 @@ class ConfigExecution {
     int? custom,
     int? bad,
     int? toCheck,
+    int? retries,
     bool? isRunning,
     bool? isPlaceholder,
     DateTime? startTime,
@@ -88,6 +91,7 @@ class ConfigExecution {
       custom: custom ?? this.custom,
       bad: bad ?? this.bad,
       toCheck: toCheck ?? this.toCheck,
+      retries: retries ?? this.retries,
       isRunning: isRunning ?? this.isRunning,
       isPlaceholder: isPlaceholder ?? this.isPlaceholder,
       startTime: startTime ?? this.startTime,

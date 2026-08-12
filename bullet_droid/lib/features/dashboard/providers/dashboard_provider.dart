@@ -490,6 +490,7 @@ class ConfigExecutionsNotifier extends StateNotifier<List<ConfigExecution>> {
             custom: 0,
             bad: 0,
             toCheck: 0,
+            retries: 0,
             startTime: DateTime.now(),
             endTime: null,
             validationError: null,
@@ -695,6 +696,7 @@ class ConfigExecutionsNotifier extends StateNotifier<List<ConfigExecution>> {
       custom: 0,
       bad: 0,
       toCheck: 0,
+      retries: 0,
       isRunning: false,
       isPlaceholder: true,
       startTime: null,
@@ -714,6 +716,7 @@ class ConfigExecutionsNotifier extends StateNotifier<List<ConfigExecution>> {
     int? custom,
     int? bad,
     int? toCheck,
+    int? retries,
   }) async {
     state = state.map((exec) {
       if (exec.id == execId) {
@@ -725,6 +728,7 @@ class ConfigExecutionsNotifier extends StateNotifier<List<ConfigExecution>> {
           custom: custom ?? exec.custom,
           bad: bad ?? exec.bad,
           toCheck: toCheck ?? exec.toCheck,
+          retries: retries ?? exec.retries,
         );
         _persistExecution(updated);
         return updated;

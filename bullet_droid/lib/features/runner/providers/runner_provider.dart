@@ -101,12 +101,8 @@ class LiveStats {
         'success': progress.hits.length,
         'custom': progress.customs.length,
         'failed': progress.fails.length,
-        'tocheck': progress.toChecks
-            .where((r) => r.status == BotStatus.TOCHECK)
-            .length,
-        'retry': progress.toChecks
-            .where((r) => r.status == BotStatus.RETRY)
-            .length,
+        'tocheck': progress.toChecks.length,
+        'retry': progress.results['retries'] as int? ?? 0,
       },
     );
   }
@@ -214,12 +210,8 @@ class MultiRunnerNotifier extends StateNotifier<Map<String, RunnerInstance>> {
                 'success': progress.hits.length,
                 'custom': progress.customs.length,
                 'failed': progress.fails.length,
-                'tocheck': progress.toChecks
-                    .where((r) => r.status == BotStatus.TOCHECK)
-                    .length,
-                'retry': progress.toChecks
-                    .where((r) => r.status == BotStatus.RETRY)
-                    .length,
+                'tocheck': progress.toChecks.length,
+                'retry': progress.results['retries'] as int? ?? 0,
               },
             )
             .copyWith(currentJobProgress: progress);

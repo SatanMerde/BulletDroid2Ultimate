@@ -945,8 +945,10 @@ class _AnimatedConfigCardState extends ConsumerState<_AnimatedConfigCard>
   Widget _buildHitIndicators(ConfigExecution execution) {
     return Container(
       padding: EdgeInsets.all(GeistSpacing.sm),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Wrap(
+        alignment: WrapAlignment.spaceEvenly,
+        spacing: GeistSpacing.xs,
+        runSpacing: GeistSpacing.xs,
         children: [
           _buildModernHitIndicator(
             color: GeistColors.successColor,
@@ -970,6 +972,12 @@ class _AnimatedConfigCardState extends ConsumerState<_AnimatedConfigCard>
             color: GeistColors.blue,
             count: execution.toCheck,
             label: 'ToCheck',
+            isAnimated: execution.isRunning,
+          ),
+          _buildModernHitIndicator(
+            color: GeistColors.gray500,
+            count: execution.retries,
+            label: 'Retry',
             isAnimated: execution.isRunning,
           ),
         ],
