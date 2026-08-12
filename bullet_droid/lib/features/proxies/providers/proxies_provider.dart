@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:bullet_droid/core/utils/logging.dart';
 
 import 'package:bullet_droid/features/proxies/models/proxy_model.dart';
+import 'package:bullet_droid/features/proxies/services/proxy_scraper_service.dart';
 import 'package:bullet_droid/shared/providers/hive_provider.dart';
 
 /// Keeps a list of proxies cached in the `proxyLists` Hive box, provides
@@ -246,6 +247,29 @@ class ProxiesNotifier extends StateNotifier<ProxiesState> {
         isLoading: false,
         error: 'Failed to import proxies: ${e.toString()}',
       );
+    }
+  }
+
+  Future<int> scrapeProxies() async {
+    state = state.copyWith(isLoading: true, error: null);
+    
+    try {
+      final scraper = ProxyScraperService();
+      final newProxies = await scraper.scrapeAllProxies();
+      
+      // Calculate how many new proxies were actually added
+      final beforeCount = state.proxies.length;
+      addProxies(newProxies);
+      final afterCount = state.proxies.length;
+      
+      state = state.copyWith(isLoading: false);
+      return afterCount - beforeCount;
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),
+      );
+      throw e;
     }
   }
 

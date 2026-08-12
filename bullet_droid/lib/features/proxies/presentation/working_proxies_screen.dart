@@ -609,6 +609,43 @@ class _WorkingProxiesScreenState extends ConsumerState<WorkingProxiesScreen> {
   }
 
   Future<void> _importProxies() async {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: GeistColors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(GeistBorders.radiusLarge)),
+      ),
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: GeistSpacing.md),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.file_upload, color: GeistColors.black),
+                title: GeistText.bodyLarge('Import / Paste Proxies'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _showImportDialog();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.download, color: GeistColors.black),
+                title: GeistText.bodyLarge('Scrape Free Proxies'),
+                subtitle: GeistText.bodySmall('Downloads from ProxyScrape', customColor: GeistColors.gray500),
+                onTap: () {
+                  Navigator.pop(context);
+                  _scrapeProxies();
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showImportDialog() async {
     await showDialog(
       context: context,
       builder: (context) => ProxyImportDialog(
@@ -619,6 +656,20 @@ class _WorkingProxiesScreenState extends ConsumerState<WorkingProxiesScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _scrapeProxies() async {
+    try {
+      context.showInfoToast('Scraping proxies...');
+      final addedCount = await ref.read(proxiesProvider.notifier).scrapeProxies();
+      if (addedCount > 0) {
+        if (mounted) context.showSuccessToast('Successfully added $addedCount new proxies!');
+      } else {
+        if (mounted) context.showWarningToast('No new proxies found (they might be duplicates)');
+      }
+    } catch (e) {
+      if (mounted) context.showErrorToast('Failed to scrape proxies');
+    }
   }
 
   Future<void> _exportProxies() async {
