@@ -198,6 +198,44 @@ class ConfigsNotifier extends StateNotifier<ConfigsState> {
     }
   }
 
+  Future<void> createAndLoadConfig(String loliCode, String filename) async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      // Save config to file
+      final filePath = await _importService.saveConfig(loliCode, filename);
+      
+      // Parse config
+      final config = await _importService.parseFromFile(filePath);
+
+      // Create config summary
+      final configId = DateTime.now().millisecondsSinceEpoch.toString();
+      final summary = ConfigSummary(
+        id: configId,
+        name: config.settings.name,
+        author: config.settings.author,
+        filePath: filePath,
+        createdAt: DateTime.now(),
+        tags: _extractTags(config),
+        description: config.settings.additionalInfo,
+        metadata: {...config.settings.toJson(), ...config.metadata.toJson()},
+      );
+
+      // Cache metadata
+      await _configMetadataBox.put(configId, summary.toJson());
+
+      // Update state
+      final updatedConfigs = [summary, ...state.configs];
+      state = state.copyWith(configs: updatedConfigs, isLoading: false);
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: 'Failed to create config: ${e.toString()}',
+      );
+      throw e;
+    }
+  }
+
   List<String> _extractTags(Config config) {
     final tags = <String>[];
 

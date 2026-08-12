@@ -1,5 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:bullet_droid2/bullet_droid.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 /// Service that encapsulates config file picking and parsing.
 class ConfigImportService {
@@ -22,5 +24,24 @@ class ConfigImportService {
   /// Parse a config at a known path.
   Future<Config> parseFromFile(String filePath) async {
     return ConfigLoader.loadFromFile(filePath);
+  }
+
+  /// Save raw LoliCode to a new file in the app documents directory.
+  Future<String> saveConfig(String loliCode, String filename) async {
+    final docsDir = await getApplicationDocumentsDirectory();
+    final configsDir = Directory('${docsDir.path}/Configs');
+    if (!await configsDir.exists()) {
+      await configsDir.create(recursive: true);
+    }
+
+    // Ensure the filename ends with .loli
+    String finalName = filename;
+    if (!finalName.toLowerCase().endsWith('.loli')) {
+      finalName = '$finalName.loli';
+    }
+
+    final file = File('${configsDir.path}/$finalName');
+    await file.writeAsString(loliCode);
+    return file.path;
   }
 }

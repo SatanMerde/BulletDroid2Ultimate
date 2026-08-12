@@ -700,7 +700,41 @@ class _ConfigsScreenState extends ConsumerState<ConfigsScreen>
 
   Widget _buildAddButton() {
     return GeistFab(
-      onPressed: _loadConfigFromFile,
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          backgroundColor: GeistColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(GeistBorders.radiusLarge)),
+          ),
+          builder: (context) => SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: GeistSpacing.md),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.file_upload, color: GeistColors.black),
+                    title: GeistText.bodyLarge('Import from File'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _loadConfigFromFile();
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.edit_document, color: GeistColors.black),
+                    title: GeistText.bodyLarge('Create New (Editor)'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      context.pushNamed(AppRoute.configEditor);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
       backgroundColor: GeistColors.black,
       foregroundColor: Colors.white,
       child: const Icon(Icons.add),

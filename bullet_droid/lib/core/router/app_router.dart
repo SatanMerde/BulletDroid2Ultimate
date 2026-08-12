@@ -6,6 +6,7 @@ import 'package:bullet_droid/features/home/presentation/home_shell.dart';
 import 'package:bullet_droid/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:bullet_droid/features/configs/presentation/configs_screen.dart';
 import 'package:bullet_droid/features/configs/presentation/config_details_screen.dart';
+import 'package:bullet_droid/features/configs/presentation/config_editor_screen.dart';
 import 'package:bullet_droid/features/runner/presentation/runner_screen.dart';
 import 'package:bullet_droid/features/runner/presentation/runner_route_params.dart';
 import 'package:bullet_droid/core/utils/logging.dart';
@@ -119,6 +120,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        path: AppPath.configEditor,
+        name: AppRoute.configEditor,
+        builder: (context, state) => const ConfigEditorScreen(),
+      ),
+      GoRoute(
         path: AppPath.licenses,
         name: AppRoute.licenses,
         builder: (context, state) => const BulletDroid2UltimateLicensePage(),
@@ -138,6 +144,7 @@ class AppRoute {
   static const String customWordlistTypes = 'custom-wordlist-types';
   static const String hitsDb = 'hits-db';
   static const String configDetails = 'config-details';
+  static const String configEditor = 'config-editor';
   static const String licenses = 'licenses';
 }
 
@@ -152,5 +159,6 @@ class AppPath {
   static const String customWordlistTypes = '/custom-wordlist-types';
   static const String hitsDb = '/hits-db';
   static const String configDetails = '/configs/:id';
+  static const String configEditor = '/configs/editor/new';
   static const String licenses = '/licenses';
 }
