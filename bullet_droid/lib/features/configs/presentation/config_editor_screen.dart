@@ -246,7 +246,7 @@ class _ConfigEditorScreenState extends ConsumerState<ConfigEditorScreen> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.code, color: GeistColors.purple),
+                leading: Icon(Icons.code, color: GeistColors.black),
                 title: GeistText.bodyLarge('PARSE'),
                 subtitle: GeistText.bodySmall('Extract variables from strings'),
                 onTap: () {

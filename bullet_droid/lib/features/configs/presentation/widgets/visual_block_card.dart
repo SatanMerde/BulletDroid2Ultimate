@@ -43,7 +43,7 @@ class _VisualBlockCardState extends State<VisualBlockCard> {
       case VisualBlockType.keycheck:
         return GeistColors.amber;
       case VisualBlockType.parse:
-        return GeistColors.purple;
+        return GeistColors.black;
     }
   }
 
