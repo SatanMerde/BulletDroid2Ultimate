@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:bullet_droid/features/configs/models/marketplace_config.dart';
 import 'package:bullet_droid/core/utils/logging.dart';
-import 'package:bullet_droid/features/configs/providers/configs_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
 class MarketplaceService {
@@ -30,7 +28,7 @@ class MarketplaceService {
     }
   }
 
-  Future<bool> downloadAndImportConfig(MarketplaceConfig config, Ref ref) async {
+  Future<String?> downloadConfig(MarketplaceConfig config) async {
     try {
       final client = HttpClient();
       final request = await client.getUrl(Uri.parse(config.downloadUrl));
@@ -41,13 +39,12 @@ class MarketplaceService {
         final file = File('${dir.path}/${config.name}.loli');
         await response.pipe(file.openWrite());
         
-        await ref.read(configsProvider.notifier).addConfigFromFilePath(file.path);
-        return true;
+        return file.path;
       }
-      return false;
+      return null;
     } catch (e) {
       Log.e('Failed to download config ${config.name}: $e');
-      return false;
+      return null;
     }
   }
 

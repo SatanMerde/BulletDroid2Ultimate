@@ -74,13 +74,13 @@ class _MarketplaceConfigCardState extends ConsumerState<_MarketplaceConfigCard> 
     setState(() => _isDownloading = true);
     
     final service = MarketplaceService();
-    final success = await service.downloadAndImportConfig(widget.config, ref);
+    final downloadedPath = await service.downloadConfig(widget.config);
     
     if (mounted) {
       setState(() => _isDownloading = false);
-      if (success) {
-        // Refresh local configs
-        ref.invalidate(configsProvider);
+      if (downloadedPath != null) {
+        // Import it into configs
+        await ref.read(configsProvider.notifier).addConfigFromFilePath(downloadedPath);
         context.showSuccessToast('${widget.config.name} downloaded successfully!');
       } else {
         context.showErrorToast('Failed to download ${widget.config.name}.');
