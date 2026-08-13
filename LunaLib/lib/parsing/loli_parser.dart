@@ -64,10 +64,26 @@ class LoliParser {
         // ignore: avoid_print
         print('Warning: Failed to parse settings JSON: $e');
       }
+      
+      // Fallback regex extraction for invalid JSON
+      String fallbackName = 'Parsed Config';
+      String fallbackAuthor = 'Unknown';
+      
+      try {
+        final nameMatch = RegExp(r'"Name"\s*:\s*"([^"]+)"').firstMatch(settingsJson);
+        if (nameMatch != null) fallbackName = nameMatch.group(1)!;
+        
+        final authorMatch = RegExp(r'"Author"\s*:\s*"([^"]+)"').firstMatch(settingsJson);
+        if (authorMatch != null) fallbackAuthor = authorMatch.group(1)!;
+      } catch (_) {}
+
       settings = ConfigSettings();
+      settings.name = fallbackName;
+      settings.author = fallbackAuthor;
+      
       metadata = ConfigMetadata(
-        name: 'Parsed Config',
-        author: 'Unknown',
+        name: fallbackName,
+        author: fallbackAuthor,
         category: 'Legacy',
         description: 'Config with invalid settings',
       );

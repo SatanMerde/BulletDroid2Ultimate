@@ -1,0 +1,41 @@
+[SETTINGS]
+{
+  "Name": "Basic Auth Checker",
+  "SuggestedBots": 1,
+  "MaxCPM": 0,
+  "LastModified": "2026-08-13T00:00:00.0000000+00:00",
+  "AdditionalInfo": "A simple config to test basic authentication.",
+  "Author": "Antigravity",
+  "Version": "1.0.0",
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": false,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+REQUEST GET "https://httpbin.org/basic-auth/user/passwd" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" 
+  HEADER "Accept: */*" 
+  HEADER "Authorization: Basic dXNlcjpwYXNzd2Q=" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "\"authenticated\": true" 
+  KEYCHAIN Failure OR 
+    KEY "<RESPONSECODE>" EqualTo "401" 

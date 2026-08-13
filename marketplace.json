@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "name": "Basic Auth Checker",
+    "author": "Antigravity",
+    "description": "A simple config to test basic authentication against HTTPBin.",
+    "downloadUrl": "https://raw.githubusercontent.com/SatanMerde/BulletDroidUltimate/main/mock_config_1.loli",
+    "tags": ["auth", "test"],
+    "version": "1.0.0"
+  },
+  {
+    "id": "2",
+    "name": "JSON API Parser",
+    "author": "Antigravity",
+    "description": "Advanced regex and parsing for REST APIs using HTTPBin.",
+    "downloadUrl": "https://raw.githubusercontent.com/SatanMerde/BulletDroidUltimate/main/mock_config_2.loli",
+    "tags": ["api", "json"],
+    "version": "1.2.0"
+  }
+]

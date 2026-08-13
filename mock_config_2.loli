@@ -1,0 +1,42 @@
+[SETTINGS]
+{
+  "Name": "JSON API Parser",
+  "SuggestedBots": 1,
+  "MaxCPM": 0,
+  "LastModified": "2026-08-13T00:00:00.0000000+00:00",
+  "AdditionalInfo": "Advanced regex and parsing for REST APIs.",
+  "Author": "Antigravity",
+  "Version": "1.2.0",
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": false,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [],
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+REQUEST GET "https://httpbin.org/json" 
+  
+  HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" 
+  HEADER "Accept: application/json" 
+
+PARSE "<SOURCE>" JSON "slideshow.author" -> VAR "AuthorName" 
+
+KEYCHECK 
+  KEYCHAIN Success OR 
+    KEY "<AuthorName>" Contains "Yours Truly" 
+  KEYCHAIN Failure OR 
+    KEY "<RESPONSECODE>" EqualTo "404" 
