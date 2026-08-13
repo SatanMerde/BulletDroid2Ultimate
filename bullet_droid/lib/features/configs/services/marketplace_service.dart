@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:bullet_droid/features/configs/models/marketplace_config.dart';
 import 'package:bullet_droid/core/utils/logging.dart';
-import 'package:bullet_droid/features/configs/services/config_import_service.dart';
+import 'package:bullet_droid/features/configs/providers/configs_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
 class MarketplaceService {
   final String catalogUrl =
       'https://raw.githubusercontent.com/SatanMerde/BulletDroidUltimate/main/marketplace.json';
-  final ConfigImportService _importService = ConfigImportService();
 
   Future<List<MarketplaceConfig>> fetchCatalog() async {
     try {
@@ -30,7 +30,7 @@ class MarketplaceService {
     }
   }
 
-  Future<bool> downloadAndImportConfig(MarketplaceConfig config) async {
+  Future<bool> downloadAndImportConfig(MarketplaceConfig config, Ref ref) async {
     try {
       final client = HttpClient();
       final request = await client.getUrl(Uri.parse(config.downloadUrl));
@@ -41,7 +41,7 @@ class MarketplaceService {
         final file = File('${dir.path}/${config.name}.loli');
         await response.pipe(file.openWrite());
         
-        await _importService.importConfigFile(file);
+        await ref.read(configsProvider.notifier).addConfigFromFilePath(file.path);
         return true;
       }
       return false;

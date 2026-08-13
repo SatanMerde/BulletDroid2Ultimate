@@ -24,7 +24,7 @@ class AnalyticsDashboardScreen extends ConsumerWidget {
     int untestedProxies = 0;
     
     for (final proxy in proxyState.proxies) {
-      switch (proxy.status.toLowerCase()) {
+      switch (proxy.status.name.toLowerCase()) {
         case 'good':
           goodProxies++;
           break;
@@ -58,7 +58,7 @@ class AnalyticsDashboardScreen extends ConsumerWidget {
                     'Lifetime Hits',
                     totalHits.toString(),
                     Icons.check_circle,
-                    GeistColors.success,
+                    GeistColors.successColor,
                   ),
                 ),
                 SizedBox(width: GeistSpacing.md),
@@ -99,7 +99,7 @@ class AnalyticsDashboardScreen extends ConsumerWidget {
                               sections: [
                                 if (goodProxies > 0)
                                   PieChartSectionData(
-                                    color: GeistColors.success,
+                                    color: GeistColors.successColor,
                                     value: goodProxies.toDouble(),
                                     title: '$goodProxies',
                                     radius: 50,
@@ -107,7 +107,7 @@ class AnalyticsDashboardScreen extends ConsumerWidget {
                                   ),
                                 if (badProxies > 0)
                                   PieChartSectionData(
-                                    color: GeistColors.error,
+                                    color: GeistColors.errorColor,
                                     value: badProxies.toDouble(),
                                     title: '$badProxies',
                                     radius: 50,
@@ -129,9 +129,9 @@ class AnalyticsDashboardScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildLegendItem('Good', GeistColors.success),
+                      _buildLegendItem('Good', GeistColors.successColor),
                       SizedBox(width: GeistSpacing.md),
-                      _buildLegendItem('Bad', GeistColors.error),
+                      _buildLegendItem('Bad', GeistColors.errorColor),
                       SizedBox(width: GeistSpacing.md),
                       _buildLegendItem('Untested', GeistColors.gray400),
                     ],

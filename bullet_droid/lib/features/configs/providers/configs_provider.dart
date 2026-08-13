@@ -191,10 +191,36 @@ class ConfigsNotifier extends StateNotifier<ConfigsState> {
         state = state.copyWith(isLoading: false);
       }
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: 'Failed to load config: ${e.toString()}',
+      Log.e('Error loading config from file: $e');
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
+  }
+
+  Future<void> addConfigFromFilePath(String filePath) async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      final config = await _importService.parseFromFile(filePath);
+
+      final configId = DateTime.now().millisecondsSinceEpoch.toString();
+      final summary = ConfigSummary(
+        id: configId,
+        name: config.settings.name,
+        author: config.settings.author,
+        filePath: filePath,
+        createdAt: DateTime.now(),
+        tags: _extractTags(config),
+        description: config.settings.additionalInfo,
+        metadata: {...config.settings.toJson(), ...config.metadata.toJson()},
       );
+
+      await _configMetadataBox.put(configId, summary.toJson());
+
+      final updatedConfigs = [...state.configs, summary];
+      state = state.copyWith(configs: updatedConfigs, isLoading: false);
+    } catch (e) {
+      Log.e('Error adding config from path: $e');
+      state = state.copyWith(isLoading: false, error: e.toString());
     }
   }
 

@@ -5,6 +5,7 @@ import 'package:bullet_droid/core/design_tokens/spacing.dart';
 import 'package:bullet_droid/core/components/atoms/geist_text.dart';
 import 'package:bullet_droid/core/components/atoms/geist_button.dart';
 import 'package:bullet_droid/core/services/toast_service.dart';
+import 'package:bullet_droid/core/extensions/toast_extensions.dart';
 import 'package:bullet_droid/features/configs/models/marketplace_config.dart';
 import 'package:bullet_droid/features/configs/services/marketplace_service.dart';
 import 'package:bullet_droid/features/configs/providers/configs_provider.dart';
@@ -50,7 +51,7 @@ class ConfigMarketplaceScreen extends ConsumerWidget {
         },
         loading: () => Center(child: CircularProgressIndicator(color: GeistColors.blue)),
         error: (error, stack) => Center(
-          child: GeistText.bodyMedium('Failed to load marketplace: $error', customColor: GeistColors.error),
+          child: GeistText.bodyMedium('Failed to load marketplace: $error', customColor: GeistColors.errorColor),
         ),
       ),
     );
@@ -73,7 +74,7 @@ class _MarketplaceConfigCardState extends ConsumerState<_MarketplaceConfigCard> 
     setState(() => _isDownloading = true);
     
     final service = MarketplaceService();
-    final success = await service.downloadAndImportConfig(widget.config);
+    final success = await service.downloadAndImportConfig(widget.config, ref);
     
     if (mounted) {
       setState(() => _isDownloading = false);
@@ -120,7 +121,7 @@ class _MarketplaceConfigCardState extends ConsumerState<_MarketplaceConfigCard> 
                     )
                   : GeistButton(
                       text: 'Download',
-                      variant: GeistButtonVariant.primary,
+                      variant: GeistButtonVariant.filled,
                       onPressed: _downloadConfig,
                     ),
             ],
