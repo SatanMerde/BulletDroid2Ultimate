@@ -109,6 +109,16 @@ class _ConfigsScreenState extends ConsumerState<ConfigsScreen>
               customColor: GeistColors.black,
             ),
             centerTitle: true,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.storefront, color: GeistColors.black),
+                onPressed: () {
+                  context.pushNamed(AppRoute.configMarketplace);
+                },
+                tooltip: 'Marketplace',
+              ),
+              SizedBox(width: GeistSpacing.sm),
+            ],
           ),
         ),
       ),

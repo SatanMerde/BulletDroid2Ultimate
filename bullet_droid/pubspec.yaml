@@ -2,7 +2,7 @@ name: bullet_droid
 description: "BulletDroid2Ultimate - An enhanced open source mobile port of OpenBullet with Dart and Flutter"
 publish_to: "none"
 
-version: 2.3.6+31
+version: 2.4.0+32
 
 environment:
   sdk: ^3.8.1
@@ -20,6 +20,9 @@ dependencies:
   # Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+
+  # UI / Charts
+  fl_chart: ^0.68.0
 
   # File Operations
   file_picker: ^8.0.0+1

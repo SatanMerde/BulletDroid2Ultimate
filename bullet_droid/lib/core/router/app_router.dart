@@ -15,6 +15,7 @@ import 'package:bullet_droid/features/settings/presentation/settings_screen.dart
 import 'package:bullet_droid/features/settings/presentation/hits_db_screen.dart';
 import 'package:bullet_droid/features/settings/presentation/license_page.dart';
 import 'package:bullet_droid/features/settings/presentation/analytics_dashboard_screen.dart';
+import 'package:bullet_droid/features/configs/presentation/config_marketplace_screen.dart';
 import 'package:bullet_droid/features/wordlists/presentation/wordlists_screen.dart';
 import 'package:bullet_droid/features/wordlists/presentation/custom_wordlist_types_screen.dart';
 
@@ -129,6 +130,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        path: AppPath.configMarketplace,
+        name: AppRoute.configMarketplace,
+        builder: (context, state) => const ConfigMarketplaceScreen(),
+      ),
+      GoRoute(
         path: AppPath.configEditor,
         name: AppRoute.configEditor,
         builder: (context, state) => const ConfigEditorScreen(),
@@ -153,6 +159,7 @@ class AppRoute {
   static const String customWordlistTypes = 'custom-wordlist-types';
   static const String hitsDb = 'hits-db';
   static const String configDetails = 'config-details';
+  static const String configMarketplace = 'config-marketplace';
   static const String configEditor = 'config-editor';
   static const String licenses = 'licenses';
   static const String analytics = 'analytics';
@@ -169,6 +176,7 @@ class AppPath {
   static const String customWordlistTypes = '/custom-wordlist-types';
   static const String hitsDb = '/hits-db';
   static const String configDetails = '/configs/:id';
+  static const String configMarketplace = '/configs-marketplace';
   static const String configEditor = '/configs/editor/new';
   static const String licenses = '/licenses';
   static const String analytics = '/analytics';
