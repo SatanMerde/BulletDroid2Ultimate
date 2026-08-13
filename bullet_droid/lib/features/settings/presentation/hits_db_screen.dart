@@ -785,7 +785,7 @@ class _HitsDbScreenState extends ConsumerState<HitsDbScreen>
       useRootNavigator: true,
       backgroundColor: GeistColors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(GeistBorders.radiusLarge)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       builder: (context) => SafeArea(
         child: Padding(
